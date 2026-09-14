@@ -366,7 +366,7 @@ p {
   position: relative;
   display: block;
   height: 56px;
-  aspect-ratio: 1400 / 544;
+  aspect-ratio: 1348 / 700;
   flex-shrink: 0;
   transition: height 0.3s ease;
 }
@@ -1042,7 +1042,7 @@ p {
   display: block;
   position: relative;
   height: 30px;
-  aspect-ratio: 1400 / 544;
+  aspect-ratio: 1348 / 700;
 }
 
 .footer-brand img {

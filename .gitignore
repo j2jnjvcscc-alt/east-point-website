@@ -2,3 +2,9 @@
 
 # Local Netlify folder
 .netlify
+
+# Real business documents (quotes, packing slips, forms) — unrelated to the
+# website, contain real client names and pricing, must never be public.
+/forms/
+/packing-slips/
+/quotes/

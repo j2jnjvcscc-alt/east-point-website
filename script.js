@@ -70,4 +70,33 @@
     window.addEventListener("resize", requestParallaxUpdate);
   }
 
+  /* ---------- Trust diagram: scroll-triggered reveal ----------
+     Adds .is-visible the first time the diagram scrolls into view, which
+     triggers the CSS transitions on each node/edge/gear/connector (see
+     styles.css). One-shot — it unobserves right after firing. Reduced-motion
+     users get the class immediately with transitions disabled in CSS, so
+     they see the final state with no animation. */
+  var trustDiagram = document.querySelector(".trust-diagram");
+
+  if (trustDiagram) {
+    if (window.matchMedia("(prefers-reduced-motion: reduce)").matches) {
+      trustDiagram.classList.add("is-visible");
+    } else if ("IntersectionObserver" in window) {
+      var trustObserver = new IntersectionObserver(
+        function (entries) {
+          entries.forEach(function (entry) {
+            if (entry.isIntersecting) {
+              trustDiagram.classList.add("is-visible");
+              trustObserver.unobserve(entry.target);
+            }
+          });
+        },
+        { threshold: 0.35 }
+      );
+      trustObserver.observe(trustDiagram);
+    } else {
+      trustDiagram.classList.add("is-visible");
+    }
+  }
+
 })();

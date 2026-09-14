@@ -684,6 +684,179 @@ p {
   box-shadow: 0 20px 40px rgba(8, 14, 24, 0.35);
 }
 
+/* Built on Trust diagram — rebuilt natively from Peter's reference graphic
+   (native SVG/HTML instead of the flat image, so it can use the site's own
+   navy/gold/cream palette and Poppins type, and scale cleanly at every
+   breakpoint). Stacked vertically rather than the reference's wide
+   horizontal layout, since this sits in a single half-width column. */
+.trust-diagram-wrap {
+  display: flex;
+  align-items: center;
+}
+
+.trust-diagram {
+  width: 100%;
+  background: rgba(250, 246, 236, 0.04);
+  border: 1px solid rgba(250, 246, 236, 0.1);
+  border-radius: var(--radius);
+  padding: 2rem;
+}
+
+.trust-step {
+  display: flex;
+  align-items: flex-start;
+  gap: 1.1rem;
+}
+
+.trust-icon {
+  flex-shrink: 0;
+  width: 56px;
+  height: 56px;
+  border-radius: 50%;
+  background: rgba(227, 169, 79, 0.12);
+  border: 1.5px solid rgba(227, 169, 79, 0.4);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: var(--gold-light);
+}
+
+.trust-icon svg {
+  width: 30px;
+  height: 30px;
+}
+
+.trust-step-text h3 {
+  font-size: 1.05rem;
+  color: var(--cream);
+  margin-bottom: 0.35rem;
+}
+
+.trust-step-text p {
+  font-size: 0.85rem;
+  line-height: 1.55;
+  color: rgba(250, 246, 236, 0.72);
+  margin-bottom: 0;
+}
+
+.trust-step-text strong {
+  color: var(--cream);
+}
+
+.trust-connector {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  margin: 0.2rem 0 0.2rem 18px;
+  color: var(--gold-light);
+}
+
+.trust-connector span {
+  font-size: 0.68rem;
+  font-weight: 700;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  color: var(--gold-light);
+}
+
+/* ---------- Trust diagram: scroll-triggered reveal ----------
+   Resting (pre-animation) states below; `.trust-diagram.is-visible`
+   (added by an IntersectionObserver in script.js the first time the
+   diagram scrolls into view) triggers the transition to each element's
+   natural state. Every element carries its own inline transition-delay
+   so the reveal cascades Suppliers → Us → You down the column. */
+.trust-node {
+  transform-origin: center;
+  transform-box: fill-box;
+  transform: scale(0);
+  opacity: 0;
+  transition: transform 0.5s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.35s ease;
+}
+
+.trust-edge {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  transition: stroke-dashoffset 0.6s ease;
+}
+
+.trust-gear {
+  transform-origin: center;
+  transform-box: fill-box;
+  transform: rotate(0deg);
+  transition: transform 1.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.trust-person-shape {
+  transform-origin: center;
+  transform-box: fill-box;
+  transform: scale(0.6);
+  opacity: 0;
+  transition: transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.4s ease;
+}
+
+.trust-shine {
+  stroke-dasharray: 1;
+  stroke-dashoffset: 1;
+  opacity: 0;
+  transition: stroke-dashoffset 0.35s ease, opacity 0.25s ease;
+}
+
+.trust-connector-arrow {
+  transform-origin: center;
+  transform: scaleY(0);
+  opacity: 0;
+  transition: transform 0.4s ease, opacity 0.3s ease;
+}
+
+.trust-connector span {
+  opacity: 0;
+  transition: opacity 0.3s ease;
+}
+
+.trust-diagram.is-visible .trust-node {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.trust-diagram.is-visible .trust-edge {
+  stroke-dashoffset: 0;
+}
+
+.trust-diagram.is-visible .trust-gear {
+  transform: rotate(720deg);
+}
+
+.trust-diagram.is-visible .trust-person-shape {
+  transform: scale(1);
+  opacity: 1;
+}
+
+.trust-diagram.is-visible .trust-shine {
+  stroke-dashoffset: 0;
+  opacity: 1;
+}
+
+.trust-diagram.is-visible .trust-connector-arrow {
+  transform: scaleY(1);
+  opacity: 1;
+}
+
+.trust-diagram.is-visible .trust-connector span {
+  opacity: 1;
+}
+
+@media (prefers-reduced-motion: reduce) {
+  .trust-node,
+  .trust-edge,
+  .trust-gear,
+  .trust-person-shape,
+  .trust-shine,
+  .trust-connector-arrow,
+  .trust-connector span {
+    transition: none !important;
+  }
+}
+
 .split-text.on-navy-text h2 {
   color: var(--cream);
 }
